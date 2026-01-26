@@ -1,11 +1,10 @@
 "use client";
-import { redirect } from "next/navigation";
-//redirect("/dashboard");
-
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
+  const router = useRouter();
   const [isSignup, setIsSignup] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -64,7 +63,8 @@ export default function LoginPage() {
         setIsSignup(false);
         setFormData({ email: formData.email, password: '', confirmPassword: '' });
       } else {
-        window.location.href = '/dashboard';
+        // Redirect to snowflake page after successful login
+        router.push('/snowflake');
       }
 
     } catch (err: any) {

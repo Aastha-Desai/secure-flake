@@ -12,23 +12,26 @@ const app = express();
 // CORS - Allow Next.js frontend to call this backend
 app.use(cors({
   origin: 'http://localhost:3000',  // Your Next.js app
-  credentials: true  // Allow cookies/sessions
+  credentials: true  
 }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use(session({
+  name: 'connect.sid',
   secret: process.env.SESSION_SECRET || 'your_secret',
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: process.env.NODE_ENV === 'production',
+    domain: 'localhost',  
+    secure: false,        
     httpOnly: true,
+    sameSite: 'lax',
     maxAge: 24 * 60 * 60 * 1000,
-    sameSite: 'lax'
-  }
+  },
 }));
+
 
 // Routes
 app.use('/api/auth', authRoutes);

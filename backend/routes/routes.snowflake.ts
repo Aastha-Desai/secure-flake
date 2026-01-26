@@ -24,18 +24,36 @@ router.post("/connect", async (req: Request, res: Response) => {
             password: givenPassword
         });
 
-        connection.destroy((err) => {
-            if (err) console.log('Trouble disconnecting: ' + err);
+        try {
+    const conn = await new Promise<any>((resolve, reject) => {
+        connection.connect((err, conn) => {
+            if (err || !conn) reject(err);
+            else resolve(conn);
         });
+    });
+
+    res.json({
+        success: true,
+        message: "Snowflake connected. Connection ID: " + conn.getId()
+    });
+
+} catch (err: any) {
+    res.json({
+        success: false,
+        message: "Snowflake connected unsuccessfully."
+    });
+    console.log("Did not connect: " + (err?.message || err));
+}
+
+
+        //connection.destroy((err) => {
+            //if (err) console.log('Trouble disconnecting: ' + err);
+        //});
 
         saveSnowflakeConnection(userId, { hostAccount, givenUsername, givenPassword});
 
         startMetricsCollectionInterval(userId);
 
-        res.json({
-            success: true,
-            message: "Snowflake connected successfully."
-        });
     } catch (err) {
         console.error('Snowflake connection error ' + err);
         res.status(400).json({
