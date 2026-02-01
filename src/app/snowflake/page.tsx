@@ -33,7 +33,7 @@ export default function SnowflakeConnectionPage() {
     setTestResult(null);
 
     try {
-      const response = await fetch('/api/snowflake/connect', {
+      const response = await fetch('http://localhost:4000/api/snowflake/connect', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -67,7 +67,7 @@ export default function SnowflakeConnectionPage() {
     setError('');
 
     try {
-      const response = await fetch('/api/snowflake/connect', {
+      const response = await fetch('http://localhost:4000/api/snowflake/connect', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

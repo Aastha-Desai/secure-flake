@@ -35,6 +35,7 @@ router.post('/signup', async (req: Request, res: Response) => {
         message: 'Account created successfully.',
         userId: user.id
     });
+    console.log("\x1b[32mAccount created successfully.\x1b[0m");
 } catch (error) {
     console.log('Singup error: ', error);
     res.status(500).json({ error: 'server_error', message: 'An error occurred during signup.'})
@@ -69,7 +70,7 @@ router.post('/login', async (req: Request, res: Response) => {
             email: user.email
         });
 
-        console.log('Login successful.');
+        console.log('\x1b[32mLogin successful.\x1b[0m');
         console.log('Session ID: ', req.session.userId);
 
 

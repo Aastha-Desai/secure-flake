@@ -24,9 +24,9 @@ export async function collectMetrics(userId: string): Promise<Metrics | void> {
                     SELECT
                         COUNT(*) as query_count,
                         SUM(TOTAL_ELAPSED_TIME) as total_time,
-                        AVG(TOTAL_ELAPSED_TIME) as avg_time,
+                        AVG(TOTAL_ELAPSED_TIME) as avg_time
                     FROM SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY
-                    WHERES START_TIME > DATEADD(minute, -5, CURRENT_TIMESTAMP())`,
+                    WHERE START_TIME > DATEADD(minute, -5, CURRENT_TIMESTAMP())`,
                     complete: (err, stmt, rows) => {
                         if (err) reject(err);
                         else resolve(rows![0]);
@@ -63,6 +63,7 @@ export function startMetricsCollectionInterval(userId: string, intervalMs: numbe
 }
 
 export function startBackgroundMonitoring(): void {
+
   setInterval(() => {
     for (const userId of snowflakeConnections.keys()) {
       collectMetrics(userId);
