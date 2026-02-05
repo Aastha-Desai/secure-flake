@@ -13,11 +13,23 @@ function StatCard({ label, value }: { label: string; value: string }) {
 }
 
 export default function DashboardPage() {
-  const total = assets.length;
-  const ok = assets.filter((a) => a.status === "OK").length;
-  const warn = assets.filter((a) => a.status === "WARN").length;
-  const fail = assets.filter((a) => a.status === "FAIL").length;
-  const healthyPct = total ? Math.round((ok / total) * 100) : 0;
+  //Get metrics
+
+  const getMetrics = async () => {
+    try {
+      const response = await fetch('http://localhost:4000/api/metrics')
+
+      if (!response.ok) {
+        console.error('Failed to fetch metrics: ', response.status);
+      }
+
+      const metricsData = await response.json();
+      return metricsData;
+
+    }catch (err) {
+      console.error('Error fetching metrics: ', err);
+    }
+  }
 
   return (
     <div className="space-y-6">
