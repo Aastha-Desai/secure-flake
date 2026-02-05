@@ -1,7 +1,8 @@
 "use client";
+import { useId } from 'react';
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 type RevealProps = {
   children: React.ReactNode;
@@ -35,10 +36,8 @@ function Reveal({ children, delayMs = 0, style }: RevealProps) {
   }, [reduced, children]);
 
   // The actual observer is attached in useEffect below using a generated id
-  const id = useMemo(
-    () => `reveal_${Math.random().toString(16).slice(2)}`,
-    []
-  );
+  const uniqueId = useId();
+  const id = `reveal_${uniqueId}`;
 
   useEffect(() => {
     if (reduced) return;
