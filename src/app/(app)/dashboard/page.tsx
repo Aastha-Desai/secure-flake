@@ -52,10 +52,6 @@ export default function DashboardPage() {
       />
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <StatCard label="Healthy assets" value={`${healthyPct}%`} />
-        <StatCard label="OK" value={`${ok}`} />
-        <StatCard label="Warnings" value={`${warn}`} />
-        <StatCard label="Failures" value={`${fail}`} />
       </div>
 
       <div className="rounded-2xl border border-slate-200 bg-white shadow-sm">
