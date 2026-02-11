@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import { User } from '../types/types.index';
 import { getUserByEmail, createUser} from '../config/config.database';
 import { error } from 'console';
+import { getMetrics } from '../config/config.database';
 
 const router = Router();
 
@@ -69,6 +70,8 @@ router.post('/login', async (req: Request, res: Response) => {
             userId: user.id,
             email: user.email
         });
+        
+        await getMetrics(user.id);
 
         console.log('\x1b[32mLogin successful.\x1b[0m');
         console.log('Session ID: ', req.session.userId);

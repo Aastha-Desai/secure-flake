@@ -41,7 +41,7 @@ export default function LoginPage() {
     }
 
     try {
-      const endpoint = isSignup ? 'https://localhost:400/api/auth/signup' : 'http://localhost:4000/api/auth/login';
+      const endpoint = isSignup ? 'http://localhost:4000/api/auth/signup' : 'http://localhost:4000/api/auth/login';
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
